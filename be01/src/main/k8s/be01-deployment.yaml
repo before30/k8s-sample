@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: be01-app
+spec:
+  selector:
+    matchLabels:
+      name: be01-app
+  replicas: 1
+  strategy:
+    type: Recreate
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        name: be01-app
+    spec:
+      containers:
+        - name: container
+          image: localhost:5000/be01:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: "JAVA_OPTS"
+              value: "-Dk8s.be02.addr=10.97.214.121:80"
+      terminationGracePeriodSeconds: 10

@@ -1,0 +1,6 @@
+server:
+  port: 8080
+
+k8s:
+  be02:
+    addr: localhost:8082
