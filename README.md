@@ -210,4 +210,123 @@ template:
 
 기타. 도커 연동 해제
 
+ # Application 배포
+
+```bash
+$ kubectl apply -f be01-svc.yaml
+  
+  service/be01-svc created
+
+$ kubectl apply -f be01-svc.yaml
+  
+  service/be02-svc created
+
+$ kubectl apply -f be01-deployment.yaml
+
+$ kubectl get all
+  NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+  service/be01-svc     NodePort    10.98.140.177    <none>        80:30398/TCP   61s
+  service/be02-svc     NodePort    10.103.222.240   <none>        80:30756/TCP   16s
+  service/kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP        29h
+
+// edit be01-deployment param with service be02 ip
+
+$  kubectl apply -f be01-deployment.yaml
+
+  deployment.apps/be01-app created
+$ kubectl apply -f be02-deployment.yaml
+
+  deployment.apps/be02-app created
+
+$ kubectl get all
+
+  NAME                            READY   STATUS    RESTARTS   AGE
+  pod/be01-app-59b868b76-4trzm    1/1     Running   0          47s
+  pod/be02-app-69968d9f58-hvl8h   1/1     Running   0          23s
+  
+  NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+  service/be01-svc     NodePort    10.98.140.177    <none>        80:30398/TCP   4m
+  service/be02-svc     NodePort    10.103.222.240   <none>        80:30756/TCP   3m15s
+  service/kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP        29h
+  
+  NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+  deployment.apps/be01-app   1/1     1            1           47s
+  deployment.apps/be02-app   1/1     1            1           23s
+  
+  NAME                                  DESIRED   CURRENT   READY   AGE
+  replicaset.apps/be01-app-59b868b76    1         1         1       47s
+  replicaset.apps/be02-app-69968d9f58   1         1         1       23s
+
+```
+
+# Kube Cluster 밖으로 연결하기
+
+Minikube에서는 minikube service를 사용해서 Application을 외부와 연동 한다.
+
+```bash
+$ minikube service be01-svc
+  |-----------|----------|-------------|-----------------------------|
+  | NAMESPACE |   NAME   | TARGET PORT |             URL             |
+  |-----------|----------|-------------|-----------------------------|
+  | default   | be01-svc | http        | http://192.168.99.100:30398 |
+  |-----------|----------|-------------|-----------------------------|
+  🎉  Opening kubernetes service  default/be01-svc in default browser...
+
+$ curl 192.168.99.100:30398/hello
+
+$ curl 192.168.99.100:30398/api/call/be02
+
+```
  
+# 로그 확인하기
+
+```bash
+$ kubectl get pod
+
+  NAME                        READY   STATUS    RESTARTS   AGE
+  be01-app-59b868b76-4trzm    1/1     Running   0          4m25s
+  be02-app-69968d9f58-hvl8h   1/1     Running   0          4m1s
+
+$ kubectl logs be01-app-59b868b76-4trzm
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.9.RELEASE)
+...
+
+```
+
+# deployment, service 삭제하기
+
+```bash
+$ kubectl delete service be01-svc be02-svc
+  service "be01-svc" deleted
+  service "be02-svc" deleted
+
+$ kubectl delete deployment be01-app be02-app
+  deployment.apps "be01-app" deleted
+  deployment.apps "be02-app" deleted
+
+$ kubectl get all
+  NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+  service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   29h
+```
+# Minikube 중지
+
+```bash
+$ minikube stop
+  ✋  Stopping "minikube" in virtualbox ...
+  🛑  "minikube" stopped.
+
+```
+
+# Minikube 초기화
+```bash
+$ minikube delete
+$ rm -rf ~/.minikube ~/.kube
+```
