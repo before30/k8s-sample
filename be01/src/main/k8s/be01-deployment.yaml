@@ -17,10 +17,11 @@ spec:
     spec:
       containers:
         - name: container
-          image: localhost:5000/be01:latest
+          image: be01
+          imagePullPolicy: Never
           ports:
             - containerPort: 8080
           env:
             - name: "JAVA_OPTS"
-              value: "-Dk8s.be02.addr=10.97.214.121:80"
+              value: "-Dk8s.be02.addr=10.103.18.29:80"
       terminationGracePeriodSeconds: 10
