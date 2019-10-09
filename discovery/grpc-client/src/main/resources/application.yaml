@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: local
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+grpc:
+  server:
+    host: localhost
+    port: 6565

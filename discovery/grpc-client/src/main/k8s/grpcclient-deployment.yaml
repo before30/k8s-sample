@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpcclient-app
+spec:
+  selector:
+    matchLabels:
+      name: grpcclient-app
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: grpcclient-app
+    spec:
+      containers:
+        - name: container
+          image: grpc-client
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: "JAVA_OPTS"
+              value: "-Dgrpc.server.host=grpcserver-svc -Dgrpc.server.port=6565 -Dspring.profiles.active=dev"
+      terminationGracePeriodSeconds: 10
