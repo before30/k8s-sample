@@ -1,4 +1,4 @@
 rootProject.name = 'k8s-sample'
 include 'be01'
 include 'be02'
-
+include 'be03'

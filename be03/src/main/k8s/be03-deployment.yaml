@@ -1,27 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: be01-app
+  name: be02-app
 spec:
   selector:
     matchLabels:
-      name: be01-app
+      name: be02-app
   replicas: 1
   strategy:
     type: Recreate
-  revisionHistoryLimit: 1
   template:
     metadata:
       labels:
-        name: be01-app
+        name: be02-app
     spec:
       containers:
         - name: container
-          image: be01
+          image: be02
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
-          env:
-            - name: "JAVA_OPTS"
-              value: "-Dk8s.be02.addr=be02-svc:80"
       terminationGracePeriodSeconds: 10
