@@ -104,5 +104,4 @@ hs_err_pid*
 
 /.gradle/
 /.idea/
-/be01/build/
-/be02/build/
+**/build/**
