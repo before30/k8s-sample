@@ -1,13 +1,13 @@
 
 # 사전 준비 사항
 
-- kubernetis-cli (brew install kubernetis-cli > 1.16.1)
+- kubernetes-cli (brew install kubernetes-cli > 1.16.1)
 - docker (brew cask install docker > 2.1.0.3)
 - minikube (brew cask install minikube > 1.4.0)
 - virtualbox (brew cask install virtualbox > 6.0.12)
 
 ```bash
-brew update && brew install  kubernetis-cli && brew cask install docker minikube virtualbox
+brew update && brew install kubernetes-cli && brew cask install docker minikube virtualbox
 ```
 
 ```bash
