@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: be02-svc
+  name: be03-svc
 spec:
   selector:
-    name: be02-app
+    name: be03-app
   ports:
     - name: http
       port: 80

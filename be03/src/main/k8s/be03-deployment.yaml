@@ -1,23 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: be02-app
+  name: be03-app
 spec:
   selector:
     matchLabels:
-      name: be02-app
+      name: be03-app
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        name: be02-app
+        name: be03-app
     spec:
       containers:
         - name: container
-          image: be02
+          image: be03
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
+          env:
+            - name: "JAVA_OPTS"
+              value: "-Dredis.host=redis-master -Dspring.profiles.active=dev"
       terminationGracePeriodSeconds: 10
