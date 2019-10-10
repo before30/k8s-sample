@@ -25,5 +25,20 @@ public class GreeterGrpcServerBuilderConfigurer extends GRpcServerBuilderConfigu
     public void configure(ServerBuilder<?> serverBuilder) {
         serverBuilder
                 .executor(executor);
+
+        /**
+         * serverBuilder
+         *                 .executor(YOUR EXECUTOR INSTANCE)
+         *                 .compressorRegistry(YOUR COMPRESSION REGISTRY)
+         *                 .decompressorRegistry(YOUR DECOMPRESSION REGISTRY)
+         *                 .useTransportSecurity(YOUR TRANSPORT SECURITY SETTINGS);
+         *             ((NettyServerBuilder)serverBuilder)// cast to NettyServerBuilder (which is the default server) for further customization
+         *                     .sslContext(GrpcSslContexts  // security fine tuning
+         *                                     .forServer(...)
+         *                                     .trustManager(...)
+         *                                     .build())
+         *                     .maxConnectionAge(...)
+         *                     .maxConnectionAgeGrace(...);
+         */
     }
 }

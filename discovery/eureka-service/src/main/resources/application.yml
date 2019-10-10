@@ -1,0 +1,13 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: Eureka Server
+
+#eureka:
+#  client:
+#    registerWithEureka: false
+#    fetchRegistry: false
+#    enableSelfPreservation: false
+#    server:
+#      waitTimeInMsWhenSyncEmpty: 0

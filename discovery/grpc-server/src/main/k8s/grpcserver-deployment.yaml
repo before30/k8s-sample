@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       name: grpcserver-app
-  replicas: 1
+  replicas: 3
   strategy:
     type: Recreate
   template:
@@ -21,4 +21,8 @@ spec:
           ports:
             - containerPort: 8080
             - containerPort: 6565
+          env:
+            - name: "JAVA_OPTS"
+              value: "-Deureka.host=eureka-np -Dspring.profiles.active=dev"
+
       terminationGracePeriodSeconds: 10
