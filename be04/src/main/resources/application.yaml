@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:be04-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    platform: h2
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /console
+      settings:
+        trace: false
+        web-allow-others: false
+---
+spring:
+  profiles: local
+server:
+  port: 8080
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: 'jdbc:mysql://127.0.0.1:3306/HOME_DB?autoReconnect=true&useSSL=false'
+    username: root
+    password: "password"
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+server:
+  port: 8080

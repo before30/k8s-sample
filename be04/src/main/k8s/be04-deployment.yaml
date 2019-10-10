@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: be04-app
+spec:
+  selector:
+    matchLabels:
+      name: be04-app
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: be04-app
+    spec:
+      containers:
+        - name: container
+          image: be04
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: "JAVA_OPTS"
+              value: "-Dspring.datasource.url=jdbc:mysql://mysql:3306/HOME_DB?autoReconnect=true&useSSL=false -Dspring.profiles.active=dev"
+      terminationGracePeriodSeconds: 10

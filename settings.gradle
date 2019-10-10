@@ -6,4 +6,5 @@ include 'be03'
 
 include 'discovery:grpc-client'
 include 'discovery:grpc-server'
+include 'be04'
 
