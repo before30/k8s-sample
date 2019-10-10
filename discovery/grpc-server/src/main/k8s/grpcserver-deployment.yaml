@@ -23,6 +23,6 @@ spec:
             - containerPort: 6565
           env:
             - name: "JAVA_OPTS"
-              value: "-Deureka.host=eureka-np -Dspring.profiles.active=dev"
+              value: "-Deureka.host=eureka-svc -Dspring.profiles.active=dev"
 
       terminationGracePeriodSeconds: 10

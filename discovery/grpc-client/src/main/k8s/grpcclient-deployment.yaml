@@ -22,5 +22,5 @@ spec:
             - containerPort: 8080
           env:
             - name: "JAVA_OPTS"
-              value: "-Dgrpc.server.host=grpcserver-svc -Dgrpc.server.port=6565 -Dspring.profiles.active=dev -Deureka.host=eureka-np"
+              value: "-Dgrpc.server.host=grpcserver-svc -Dgrpc.server.port=6565 -Dspring.profiles.active=dev -Deureka.host=eureka-svc"
       terminationGracePeriodSeconds: 10
