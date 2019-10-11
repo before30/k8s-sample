@@ -8,4 +8,5 @@ include 'be04'
 include 'discovery:grpc-client'
 include 'discovery:grpc-server'
 include 'discovery:eureka-service'
+include 'discovery:grpc-echo-common'
 
