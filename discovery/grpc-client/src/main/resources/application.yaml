@@ -10,12 +10,12 @@ management:
       exposure:
         include: "*"
 grpc:
-  server:
-    host: localhost
-    port: 6565
+  eureka:
+    service-id: GRPC-SERVER
 eureka:
   host: localhost
   port: 8761
+
   instance:
     metadata-map:
       grpcport: ${grpc.port}

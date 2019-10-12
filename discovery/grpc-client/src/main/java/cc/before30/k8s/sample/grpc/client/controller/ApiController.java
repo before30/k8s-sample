@@ -1,13 +1,19 @@
 package cc.before30.k8s.sample.grpc.client.controller;
 
-import cc.before30.home.grpc.proto.GreeterGrpc;
-import cc.before30.home.grpc.proto.GreeterOuterClass;
-import cc.before30.k8s.sample.grpc.client.domain.GreeterService;
+import cc.before30.k8s.sample.grpc.client.domain.EchoService;
+import cc.before30.k8s.sample.grpc.common.EchoOuterClass;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import io.grpc.ManagedChannel;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * ApiController
@@ -20,34 +26,29 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ApiController {
     private final ManagedChannel channel;
-    private final GreeterService greeterService;
+    private final EchoService echoService;
 
     public ApiController(ManagedChannel channel,
-                         GreeterService greeterService) {
+                         EchoService echoService) {
         this.channel = channel;
-        this.greeterService = greeterService;
+        this.echoService = echoService;
     }
 
-    @GetMapping("/hello/{name}")
-    public String hello(@PathVariable("name") String name) {
+    @GetMapping("/hello-one/{message}")
+    public String helloOne(@PathVariable("message") String message) {
+        ListenableFuture future = echoService.echoToOneByNameResolver(message);
+        Futures.addCallback(future, new FutureCallback<EchoOuterClass.Echo>() {
+            @Override
+            public void onSuccess(@NullableDecl EchoOuterClass.Echo result) {
+                log.info("Success={}", result.getMessage());
+            }
 
-        GreeterGrpc.GreeterBlockingStub stub = GreeterGrpc.newBlockingStub(channel);
-        GreeterOuterClass.HelloReply helloReply = stub.sayHello(GreeterOuterClass.HelloRequest.newBuilder().setName(name).build());
-        log.info("Reply={}", helloReply);
+            @Override
+            public void onFailure(Throwable t) {
+                log.error("Fail={}", t.getMessage());
+            }
+        }, MoreExecutors.directExecutor());
 
-        return helloReply.getMessage();
-    }
-
-    @GetMapping("/v2/hello/{name}")
-    public String hello2(@PathVariable("name") String name) {
-        greeterService.greetOne(name);
-        return "ok";
-    }
-
-    @GetMapping("v2/hello-all/{name}")
-    public String hello2All(@PathVariable("name") String name) {
-        greeterService.greetAll(name);
-
-        return "ok";
+        return "OK";
     }
 }
