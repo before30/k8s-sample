@@ -1,12 +1,6 @@
 rootProject.name = 'k8s-sample'
-
 include 'be01'
 include 'be02'
 include 'be03'
 include 'be04'
-
-include 'discovery:grpc-client'
-include 'discovery:grpc-server'
-include 'discovery:eureka-service'
-include 'discovery:grpc-echo-common'
 

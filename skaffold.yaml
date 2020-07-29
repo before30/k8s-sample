@@ -1,0 +1,22 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: prometheus-sample
+build:
+  artifacts:
+    - image: backend-service-01
+      jib:
+        project: be01
+    - image: backend-service-02
+      jib:
+        project: be02
+    - image: backend-service-03
+      jib:
+        project: be03
+    - image: backend-service-04
+      jib:
+        project: be04
+deploy:
+  kubectl:
+    manifests:
+      - k8s/*

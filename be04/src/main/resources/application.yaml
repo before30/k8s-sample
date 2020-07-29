@@ -21,6 +21,11 @@ spring:
       settings:
         trace: false
         web-allow-others: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
 ---
 spring:
   profiles: local

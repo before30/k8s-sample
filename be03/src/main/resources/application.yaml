@@ -2,12 +2,8 @@ redis:
   host: localhost
   port: 6379
 
-spring:
-  profiles:
-    active: local
 management:
   endpoints:
     web:
-      base-path: /actuator
       exposure:
-        include: "*"
+        include: health, info, prometheus

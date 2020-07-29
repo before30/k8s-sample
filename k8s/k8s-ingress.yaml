@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: home-k8s
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: test.home.me
+      http:
+        paths:
+          - path: /be01(/|$)(.*)
+            backend:
+              serviceName: backend-service-01
+              servicePort: 80
+          - path: /be02(/|$)(.*)
+            backend:
+              serviceName: backend-service-02
+              servicePort: 80
+          - path: /be03(/|$)(.*)
+            backend:
+              serviceName: backend-service-03
+              servicePort: 80
+          - path: /be04(/|$)(.*)
+            backend:
+              serviceName: backend-service-04
+              servicePort: 80

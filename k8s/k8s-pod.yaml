@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    service: backend-service-01
+  name: backend-service-01
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  containers:
+    - name: backend-service-01
+      image: backend-service-01
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    service: backend-service-02
+  name: backend-service-02
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  containers:
+    - name: backend-service-02
+      image: backend-service-02
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    service: backend-service-03
+  name: backend-service-03
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  containers:
+    - name: backend-service-03
+      image: backend-service-03
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    service: backend-service-04
+  name: backend-service-04
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+spec:
+  containers:
+    - name: backend-service-04
+      image: backend-service-04
+      ports:
+        - containerPort: 8080
+          protocol: TCP
