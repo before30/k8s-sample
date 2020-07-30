@@ -2,9 +2,6 @@ package cc.before30.k8s.sample.be04.domain;
 
 import lombok.*;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-
 /**
  * ProductDto
  *
@@ -19,12 +16,9 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class ProductDto {
 
-    @NotEmpty
     private String name;
 
-    @Min(0)
     private Integer price;
 
-    @Min(0)
     private Integer count;
 }

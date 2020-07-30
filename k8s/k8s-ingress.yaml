@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
-    - host: test.home.me
+    - host: test.10.0.1.49.xip.io
       http:
         paths:
           - path: /be01(/|$)(.*)
