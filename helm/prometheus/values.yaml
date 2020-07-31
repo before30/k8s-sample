@@ -689,12 +689,13 @@ server:
   ingress:
     ## If true, Prometheus server Ingress will be created
     ##
-    enabled: false
+    enabled: true
 
     ## Prometheus server Ingress annotations
     ##
-    annotations: {}
-    #   kubernetes.io/ingress.class: nginx
+    annotations: {
+      kubernetes.io/ingress.class: nginx
+    }
     #   kubernetes.io/tls-acme: 'true'
 
     ## Prometheus server Ingress additional labels
@@ -704,7 +705,9 @@ server:
     ## Prometheus server Ingress hostnames with optional path
     ## Must be provided if Ingress is enabled
     ##
-    hosts: []
+    hosts: [
+      prometheus.10.0.1.49.xip.io
+    ]
     #   - prometheus.domain.com
     #   - domain.com/prometheus
 

@@ -137,14 +137,17 @@ hostAliases: []
   #     - "my.host.com"
 
 ingress:
-  enabled: false
+  enabled: true
   # Values can be templated
-  annotations: {}
+  annotations: {
+    kubernetes.io/ingress.class: nginx
+  }
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   labels: {}
   path: /
   hosts:
+    - grafana.10.0.1.49.xip.io
     - chart-example.local
   ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
   extraPaths: []
